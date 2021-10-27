@@ -1,0 +1,1 @@
+[{"navFile":"src\\main\\res\\navigation\\news_nav_graph.xml","javaFiles":["com.tolanylannie.newsapp.ui.fragments.BreakingNewsFragmentDirections","com.tolanylannie.newsapp.ui.fragments.SavedNewsFragmentDirections","com.tolanylannie.newsapp.ui.fragments.SearchNewsFragmentDirections"]}]
