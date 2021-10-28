@@ -1,6 +1,6 @@
 package com.tolanylannie.newsapp.api
 
-import com.tolanylannie.newsapp.NewsResponse
+import com.tolanylannie.newsapp.model.NewsResponse
 import com.tolanylannie.newsapp.util.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
@@ -11,7 +11,7 @@ interface NewsAPI {
     @GET("v2/top-headlines")
     suspend fun getBreakingNews(
         @Query("country")
-        countryCode:String ="sa",
+        countryCode:String ="za",
         @Query("page")
         pageNumber:Int = 1,
         @Query("apiKey")
