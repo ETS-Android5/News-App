@@ -1873,7 +1873,6 @@ id bounce
 id breakingNewsFragment
 id buttonPanel
 id cancel_button
-id card
 id center
 id center_horizontal
 id center_vertical
