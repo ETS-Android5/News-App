@@ -12,6 +12,10 @@
         "source": "C:\\Users\\dell\\AndroidStudioProjects\\NewsApp\\app\\src\\main\\res\\layout\\item_article_preview.xml"
     },
     {
+        "merged": "C:\\Users\\dell\\AndroidStudioProjects\\NewsApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_search_news.xml.flat",
+        "source": "C:\\Users\\dell\\AndroidStudioProjects\\NewsApp\\app\\src\\main\\res\\drawable\\ic_search_news.xml"
+    },
+    {
         "merged": "C:\\Users\\dell\\AndroidStudioProjects\\NewsApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_news.xml.flat",
         "source": "C:\\Users\\dell\\AndroidStudioProjects\\NewsApp\\app\\src\\main\\res\\layout\\activity_news.xml"
     },

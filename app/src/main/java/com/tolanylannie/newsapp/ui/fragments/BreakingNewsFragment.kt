@@ -3,13 +3,17 @@ package com.tolanylannie.newsapp.ui.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.mvvmnewsapp.R
 import com.tolanylannie.newsapp.adapters.NewsAdapter
 import com.tolanylannie.newsapp.ui.NewActivity
 import com.tolanylannie.newsapp.ui.NewsViewModel
+import com.tolanylannie.newsapp.util.Constants.Companion.QUERYPAGESIZE
 import com.tolanylannie.newsapp.util.Resource
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
 
@@ -25,15 +29,29 @@ class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
         viewModel =(activity as NewActivity).viewModel
         setUpRecyclerView()
 
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article", it)
+            }
+            findNavController().navigate(
+                R.id.action_breakingNewsFragment_to_articleFragment,
+                bundle
+            )
+        }
+
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer {
             response ->
             when(response){
                 is Resource.Success ->{
                     hideProgressBar()
-                    response.data.let { newsResponse ->
-                        if (newsResponse != null) {
-                            newsAdapter.differ.submitList(newsResponse.articles)
+                    response.data?.let { newsResponse ->
+                            newsAdapter.differ.submitList(newsResponse.articles.toList())
+                            val totalPages = newsResponse.totalResults / QUERYPAGESIZE +2
+                            isLastPAge = viewModel.breakingNewsPage == totalPages
+                        if(isLastPAge){
+                                rvBreakingNews.setPadding(0,0,0,0)
                         }
+
                     }
                 }
                 is Resource.Error->{
@@ -51,16 +69,52 @@ class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
 
     private fun hideProgressBar() {
         paginationProgressBar.visibility = View.INVISIBLE
+        isloading = false
     }
     private fun showProgressBar() {
         paginationProgressBar.visibility = View.VISIBLE
+        isloading = true
     }
+    var isloading = false
+    var isLastPAge = false
+    var isScrolling = false
 
+    val scrollListener = object : RecyclerView.OnScrollListener(){
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            val layoutManager =recyclerView.layoutManager as LinearLayoutManager
+            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            val visibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+
+
+            val isNoteLoadingAndNotLastPage = !!isloading && isLastPAge
+            val isAtLastItem = (firstVisibleItemPosition + visibleItemCount >=totalItemCount)
+            val isNotAtBeginning = firstVisibleItemPosition >=0
+            val isTotalMoreThanVisible = totalItemCount >= QUERYPAGESIZE
+            val shouldPaginate = isNoteLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
+                    isTotalMoreThanVisible && isScrolling
+            if(shouldPaginate){
+                viewModel.getBreakingNews("za")
+                isScrolling = false
+            }
+
+        }
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if(newState ==AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                isScrolling = true
+            }
+        }
+    }
     private fun setUpRecyclerView(){
         newsAdapter = NewsAdapter()
         rvBreakingNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
+            addOnScrollListener(this@BreakingNewsFragment.scrollListener)
         }
     }
 }

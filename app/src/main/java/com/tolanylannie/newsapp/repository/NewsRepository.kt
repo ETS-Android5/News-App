@@ -2,6 +2,7 @@ package com.tolanylannie.newsapp.repository
 
 import com.tolanylannie.newsapp.api.RetrofitInstance
 import com.tolanylannie.newsapp.database.ArticleDatabase
+import com.tolanylannie.newsapp.model.Article
 
 class NewsRepository(
     val db:ArticleDatabase
@@ -12,4 +13,10 @@ class NewsRepository(
     //search function
     suspend fun searchNews(searchQuery:String,pageNumber: Int)=
         RetrofitInstance.api.searchForNews(searchQuery, pageNumber)
+
+    suspend fun upsert(article:Article) = db.getArticleDao().upsert(article)
+
+    fun getSavedArticles() = db.getArticleDao().getALLArticles()
+
+    suspend fun deleteArticle(article:Article) = db.getArticleDao().deleteArticle(article)
 }
