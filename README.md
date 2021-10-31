@@ -26,5 +26,5 @@ This application was made and is maintained by [Thulani Mpofu](https://github.co
    - Coroutines
    - MVVM Architecture
    - ViewBinding
-   - Navigation Component
+   - Navigation Components (passing arguments between fragments)
    - Pagination 
