@@ -13,8 +13,13 @@ class NewsViewModel(
     val newsRepository: NewsRepository
 ):ViewModel() {
 
+    //breaking news values and variables
     val breakingNews:MutableLiveData<com.tolanylannie.newsapp.util.Resource<NewsResponse>> = MutableLiveData()
     var breakingNewsPage =1
+
+    //search news values and variables
+    val searchNews:MutableLiveData<com.tolanylannie.newsapp.util.Resource<NewsResponse>> = MutableLiveData()
+    var searchNewsPage =1
 
 
     init {
@@ -27,7 +32,26 @@ class NewsViewModel(
         breakingNews.postValue(handleBreakingNewsResponse(response))
     }
 
+    fun searchNews(searchQuery:String) = viewModelScope.launch {
+        //emit loading state
+        searchNews.postValue(Resource.Loading())
+        val response = newsRepository.searchNews(searchQuery, searchNewsPage)
+        searchNews.postValue(handleBreakingNewsResponse(response))
+    }
+
+
+
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>):Resource<NewsResponse>{
+        if(response.isSuccessful){
+            response.body()?.let { resultResponse ->
+                return Resource.Success(resultResponse)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+
+    private fun handleSearchNewsResponse(response: Response<NewsResponse>):Resource<NewsResponse>{
         if(response.isSuccessful){
             response.body()?.let { resultResponse ->
                 return Resource.Success(resultResponse)

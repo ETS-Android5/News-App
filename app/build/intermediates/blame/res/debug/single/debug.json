@@ -92,6 +92,10 @@
         "source": "C:\\Users\\dell\\AndroidStudioProjects\\NewsApp\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
     },
     {
+        "merged": "C:\\Users\\dell\\AndroidStudioProjects\\NewsApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_search_backgroun.xml.flat",
+        "source": "C:\\Users\\dell\\AndroidStudioProjects\\NewsApp\\app\\src\\main\\res\\drawable\\search_backgroun.xml"
+    },
+    {
         "merged": "C:\\Users\\dell\\AndroidStudioProjects\\NewsApp\\app\\build\\intermediates\\res\\merged\\debug\\anim_slide_in_right.xml.flat",
         "source": "C:\\Users\\dell\\AndroidStudioProjects\\NewsApp\\app\\src\\main\\res\\anim\\slide_in_right.xml"
     },
