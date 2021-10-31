@@ -6,6 +6,8 @@
 
 <img src="https://github.com/TOLANY-LANNIE/News-App/blob/main/screenshots/breaking%20news.gif" height="480">  <img src="https://github.com/TOLANY-LANNIE/News-App/blob/main/screenshots/search.gif" height="480">  <img src="https://github.com/TOLANY-LANNIE/News-App/blob/main/screenshots/article.gif" height="480">
 
+**Note:** To to able to run this app, you need to get an API KEY from [News Api](https://newsapi.org) website and updatedthe Constance class [line 5](https://github.com/TOLANY-LANNIE/News-App/blob/main/app/src/main/java/com/tolanylannie/newsapp/util/Constants.kt) with the key
+
 ### Features
    - Retrofit
    - ROOM
