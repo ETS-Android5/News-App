@@ -20,3 +20,11 @@
 
 ### Contributors
 This application was made and is maintained by [Thulani Mpofu](https://github.com/TOLANY-LANNIE)
+
+### Lessons Learned
+   - ROOM
+   - Coroutines
+   - MVVM Architecture
+   - ViewBinding
+   - Navigation Component
+   - Pagination 
