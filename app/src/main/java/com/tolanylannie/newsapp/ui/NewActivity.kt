@@ -22,6 +22,7 @@ class NewActivity : AppCompatActivity() {
         val newsRepository = NewsRepository(ArticleDatabase(this))
         val viewModelProviderFactory = NewsViewModelProviderFactory( newsRepository)
         viewModel = ViewModelProvider(this,viewModelProviderFactory).get(NewsViewModel::class.java)
+
         bottomNavigationView.setupWithNavController(newsNavHostFragment.findNavController())
         bottomNavigationView.itemBackgroundResource = (R.color.white);
     }
